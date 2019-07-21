@@ -1,48 +1,21 @@
-%
-% This script is available under the MIT license;
-% the license information is found in 'LICENSE'.
-%
-
-
-%
-% "bioeng.cls": LaTeX2e custom class built on top of the LaTeX2e article class
-%
-% This class emulates the MS-Word template for the extended thesis
-% abstract of the Depatment of Bioengineering, University of Tokyo.
-%
-% Jaewoong Jang
-% PhD student
-% University of Tokyo
-% jang.comsci@gmail.com
-%
-
-
-%
-% Class identification
-%
-\newcommand\bioengName{bioeng}
-\newcommand\bioengTitl{A LaTeX2e class for UTokyo Bioeng. defense abstract}
-\newcommand\bioengVers{v1.0.0}
-\newcommand\bioengDateLast{2018/07/04} % Must be in the form 'yyyy/mm/dd'
-\newcommand\bioengDateFirst{2018/06/19}
-
-\NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{\bioengName}[\bioengDateLast\space\bioengVers]
-
-\typeout{++++++++++++++++++++++++++++++++++++++++}
-\typeout{\bioengName\space\bioengVers:\space\bioengTitl}
-\typeout{++++++++++++++++++++++++++++++++++++++++}
-
-
-%
-% Class options
-%
-\LoadClass[a4paper,10pt,twocolumn,twoside]{article} % <= Abs guidelines
-\DeclareOption{onecolumn}{\OptionNotUsed} % <= Abs guidelines
-\DeclareOption{nopagenum}{\pagenumbering{gobble}}
-% Options unknown to this class will be passed to the article class.
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
-\ProcessOptions\relax
+\newcommand{\bioengName}{bioeng}
+\newcommand{\bioengTitl}{A LaTeX2e class for UTokyo Bioeng. defense abstract}
+\newcommand{\bioengVers}{1.01}
+\newcommand{\bioengDateLast}{2019/06/23}
+\newcommand{\bioengDateFirst}{2018/06/19}
+\newcommand{\bioengAuth}{Jaewoong Jang}
+\newcommand{\bioengPosi}{PhD student}
+\newcommand{\bioengAffi}{University of Tokyo}
+\newcommand{\bioengMail}{jangj@korea.ac.kr}
+\newcommand{\bioengLicOne}{Copyright (c) 2018-2019 \bioengAuth\space<\bioengMail>}
+\newcommand{\bioengLicTwo}{This class is available under the MIT license;}
+\newcommand{\bioengLicThree}{the license information is found in '\bioengName-LICENSE'.}
+\typeout{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+\typeout{\bioengName\space\bioengVers:\space\bioengExpl}
+\typeout{\bioengLicOne}
+\typeout{\bioengLicTwo}
+\typeout{\bioengLicThree}
+\typeout{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
 
 
 %
@@ -54,22 +27,44 @@
 % Leading, in its modern term, refers to the distance between
 % the baselines of successive lines of type.
 %
-\RequirePackage{anyfontsize} % Font size scaler for Computer Modern
-\newcommand\titlFontSize{14pt} % <= Abs guidelines
-\newcommand\titlFontLeading{18pt}
-\newcommand\subtitlFontSize{12pt} % <= Abs guidelines
-\newcommand\subtitlFontLeading{16pt}
-\newcommand\subtitlAuthSep{0pt}
-\newcommand\authFontSize{10pt} % <= Abs guidelines
-\newcommand\authFontLeading{16pt}
-\newcommand\mainFontSize{10pt} % <= Abs guidelines
-\newcommand\mainFontLeading{16pt}
+\newcommand{\titlFontSize}{14pt}% <= Abs guidelines
+\newcommand{\titlFontLeading}{18pt}
+\newcommand{\subtitlFontSize}{12pt}% <= Abs guidelines
+\newcommand{\subtitlFontLeading}{16pt}
+\newcommand{\subtitlAuthSep}{0pt}
+\newcommand{\authFontSize}{10pt}% <= Abs guidelines
+\newcommand{\authFontLeading}{16pt}
+\newcommand{\mainFontSize}{10pt}% <= Abs guidelines
+\newcommand{\mainFontLeading}{16pt}
+
+
+%
+% Class definition
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{\bioengName}[\bioengDateLast{\space}v\bioengVers]
+\DeclareOption{onecolumnabs}{
+  \renewcommand{\authFontSize}{12pt}
+  \renewcommand{\authFontLeading}{16pt}
+  \renewcommand{\mainFontSize}{11pt}
+  \renewcommand{\mainFontLeading}{16pt}
+}
+\DeclareOption{nopagenum}{\pagenumbering{gobble}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptions\relax
+\LoadClass[a4paper,10pt,twocolumn,twoside]{article}% <= Abs guidelines
+
+
+%
+% Packages used throughout this class
+%
+\RequirePackage{anyfontsize}
 
 
 % 
-% Redefine the maketitle command
+% Redefine the maketitle command.
 %
-\renewcommand\maketitle{%
+\renewcommand{\maketitle}{%
   \begin{center}
     \fontsize{\titlFontSize}{\titlFontLeading}\selectfont
     \@title
@@ -83,22 +78,18 @@
 
 
 %
-% Redefine the abstract environment
+% Redefine the abstract environment.
 %
-\renewenvironment{abstract}{%
-  {\noindent\bfseries\abstractname:}
-  \noindent\ignorespaces
-}{\vspace{\mainFontLeading}}
+\renewenvironment{abstract}
+  {\noindent\bfseries\abstractname:\noindent\ignorespaces}
+  {\vspace{\mainFontLeading}}
 
 
 %
 % Page margins
 %
-\RequirePackage[%
-%  showframe,
+\RequirePackage[
   margin=25mm,
-  twocolumn,
-  twoside,
 ]{geometry}
 
 
@@ -145,23 +136,17 @@
 % [<after-code>] Optional
 % Words following the title body
 %
-\newcommand\horiSep{0.5em}
+\newcommand{\horiSep}{0.5em}
 \titleformat
   {\section}
-%  [display]
-  {%
-    \bfseries%
-    \fontsize{\mainFontSize}{\mainFontLeading}\selectfont%
-  }
+  {\bfseries
+   \fontsize{\mainFontSize}{\mainFontLeading}\selectfont}
   {\thesection.}{\horiSep} % A dot (.) follows the section label
   {}[]
 \titleformat
   {\subsection}
-%  [display]
-  {%
-    \bfseries%
-    \fontsize{\mainFontSize}{\mainFontLeading}\selectfont%
-  }%
+  {\bfseries
+   \fontsize{\mainFontSize}{\mainFontLeading}\selectfont}
   {\thesubsection.}{\horiSep} % A dot (.) follows the subsection label
   {}[]
 %
@@ -190,9 +175,9 @@
 % of increasing the hright-sepi margin with this optional
 % argument.
 %
-\newcommand\leftMargin{0pt}
-\newcommand\spaceBefSecTitle{1.0em}
-\newcommand\spaceAftSecTitle{0.2em}
+\newcommand{\leftMargin}{0pt}
+\newcommand{\spaceBefSecTitle}{1.0em}
+\newcommand{\spaceAftSecTitle}{0.2em}
 \titlespacing*
   {\section}{\leftMargin}
   {\spaceBefSecTitle}{\spaceAftSecTitle}
@@ -211,12 +196,12 @@
 %
 % Captions
 %
-\RequirePackage{caption} % $ texdoc caption
-\captionsetup[figure]{   % p. 4
-  name=Fig.,             % pp. 15-16; the float label
-  labelsep=period,       % p. 6; what follows the count of a float label
-  textformat=simple,     % p. 7; what follows the last char of the caption
-  font=normalsize,       % p. 9
+\RequirePackage{caption}
+\captionsetup[figure]{ % man p4
+  name=Fig.,           % man pp15-16; the float label
+  labelsep=period,     % man p6; what follows the count of a float label
+  textformat=simple,   % man p7; what follows the last char of the caption
+  font=normalsize,     % man p9
 }
 \captionsetup[table]{
   name=Table,
